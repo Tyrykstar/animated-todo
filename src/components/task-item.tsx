@@ -1,5 +1,9 @@
 import { useCallback } from 'react'
-import { Pressable } from 'react-native'
+import {
+    NativeSyntheticEvent,
+    Pressable,
+    TextInputChangeEventData
+} from 'react-native'
 import {
     Box,
     HStack,
@@ -7,10 +11,11 @@ import {
     useTheme,
     themeTools,
     useColorModeValue,
-    Icon
+    Icon,
+    Input
 } from 'native-base'
 import AnimatedCheckbox from 'react-native-checkbox-reanimated'
-import { PanGestureHandlerProps } from 'react-native-gesture-handler'
+import { PanGestureHandlerProps, TextInput } from 'react-native-gesture-handler'
 import AnimatedTaskLabel from './animated-task-label'
 import { Feather } from '@expo/vector-icons'
 import SwipableView from './swipable-view'
@@ -21,16 +26,22 @@ interface Props extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
     onPressLabel?: () => void
     onRemove?: () => void
     subject: string
+    isEditing: boolean
+    onChangeSubject?: (subject: string) => void
+    onFinishEditing?: () => void
 }
 
 const TaskItem = (props: Props) => {
     const {
+        isEditing,
         isDone,
         onToggleCheckbox,
         subject,
         onPressLabel,
         onRemove,
-        simultaneousHandlers
+        simultaneousHandlers,
+        onChangeSubject,
+        onFinishEditing
     } = props
     const theme = useTheme()
 
@@ -53,6 +64,13 @@ const TaskItem = (props: Props) => {
     const doneTextColor = themeTools.getColor(
         theme,
         useColorModeValue('muted.400', 'muted.600')
+    )
+
+    const handleChangeSubject = useCallback(
+        (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+            onChangeSubject && onChangeSubject(e.nativeEvent.text)
+        },
+        [onChangeSubject]
     )
 
     return (
@@ -93,13 +111,29 @@ const TaskItem = (props: Props) => {
                         />
                     </Pressable>
                 </Box>
-                <AnimatedTaskLabel
-                    textColor={activeTextColor}
-                    inactiveTextColor={doneTextColor}
-                    strikethrough={isDone}
-                >
-                    {subject}
-                </AnimatedTaskLabel>
+                {isEditing ? (
+                    <Input
+                        placeholder="Task"
+                        value={subject}
+                        variant={'unstyled'}
+                        fontSize={19}
+                        px={1}
+                        py={0}
+                        autoFocus
+                        blurOnSubmit
+                        onChange={handleChangeSubject}
+                        onBlur={onFinishEditing}
+                    />
+                ) : (
+                    <AnimatedTaskLabel
+                        textColor={activeTextColor}
+                        inactiveTextColor={doneTextColor}
+                        strikethrough={isDone}
+                        onPress={onPressLabel}
+                    >
+                        {subject}
+                    </AnimatedTaskLabel>
+                )}
             </HStack>
         </SwipableView>
     )

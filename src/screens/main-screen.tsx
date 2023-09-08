@@ -16,6 +16,9 @@ import TaskItem from '../components/task-item'
 
 export default function MainScreen() {
     const [checked, setChecked] = useState<boolean>(false)
+    const [subject, setSubject] = useState('Task Item')
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+
     const handlePressCheckbox = useCallback(() => {
         setChecked(prev => !prev)
     }, [])
@@ -31,7 +34,11 @@ export default function MainScreen() {
                 <TaskItem
                     isDone={checked}
                     onToggleCheckbox={handlePressCheckbox}
-                    subject="Task Item"
+                    subject={subject}
+                    onChangeSubject={setSubject}
+                    isEditing={isEditing}
+                    onFinishEditing={() => setIsEditing(false)}
+                    onPressLabel={() => setIsEditing(true)}
                 />
                 {/* <Box p={10} bg={useColorModeValue('red.500', 'yellow.500')}>
                     <Text>hello artur</Text>
