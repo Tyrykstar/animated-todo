@@ -21,7 +21,7 @@ import TaskItem from '../components/task-item'
 import TaskList from '../components/task-list'
 import AnimatedColorBox from '../components/animated-color-box'
 import Masthead from '../components/masthead'
-import NavBar from '../components/navBar'
+import NavBar from '../components/navbar'
 
 const intialData: Array<TaskItemData> = [
     {
@@ -92,12 +92,20 @@ export default function MainScreen() {
             w={'full'}
         >
             <Masthead
-                title="What's up!:)"
+                title="What's up! :)"
                 image={require('../assets/avatar.jpg')}
             >
                 <NavBar />
             </Masthead>
-            <VStack space={1} alignItems={'center'} w={'100%'}>
+            <VStack
+                flex={1}
+                space={1}
+                mt={'-20px'}
+                borderTopLeftRadius={'20px'}
+                borderTopRightRadius={'20px'}
+                pt={'20px'}
+                bg={useColorModeValue('warmGray.50', 'primary.900')}
+            >
                 <TaskList
                     data={data}
                     onToggleItem={handleToggleTaskItem}
@@ -107,7 +115,7 @@ export default function MainScreen() {
                     onRemoveItem={handleRemoveItem}
                     editingItemId={editingItemId}
                 />
-                <ThemeToggle />
+                {/* <ThemeToggle /> */}
             </VStack>
             <Fab
                 position={'absolute'}

@@ -10,7 +10,7 @@ interface Props {
 
 const Masthead = ({ title, image, children }: Props) => {
     return (
-        <VStack h={'300px'} pb={5}>
+        <VStack h={'300px'} pb={5} flex={0} alignItems={'flex-end'}>
             <Image
                 position={'absolute'}
                 left={0}
@@ -24,7 +24,7 @@ const Masthead = ({ title, image, children }: Props) => {
             />
             {children}
             <Box flex={1} />
-            <Heading color={'white'} p={6} size="xl">
+            <Heading color={'darkBlue.700'} p={6} size="xl">
                 {title}
             </Heading>
         </VStack>
