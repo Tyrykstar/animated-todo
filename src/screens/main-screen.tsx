@@ -20,6 +20,8 @@ import ThemeToggle from '../components/theme-toggle'
 import TaskItem from '../components/task-item'
 import TaskList from '../components/task-list'
 import AnimatedColorBox from '../components/animated-color-box'
+import Masthead from '../components/masthead'
+import NavBar from '../components/navBar'
 
 const intialData: Array<TaskItemData> = [
     {
@@ -89,6 +91,12 @@ export default function MainScreen() {
             bg={useColorModeValue('warmGray.50', 'primary.900')}
             w={'full'}
         >
+            <Masthead
+                title="What's up!:)"
+                image={require('../assets/avatar.jpg')}
+            >
+                <NavBar />
+            </Masthead>
             <VStack space={1} alignItems={'center'} w={'100%'}>
                 <TaskList
                     data={data}
