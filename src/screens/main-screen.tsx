@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react'
-import { Pressable } from 'react-native'
+import { Pressable, Dimensions } from 'react-native'
 import {
     Text,
     Box,
     Center,
+    View,
     VStack,
     themeTools,
     useTheme,
@@ -18,6 +19,7 @@ import shortid from 'shortid'
 import ThemeToggle from '../components/theme-toggle'
 import TaskItem from '../components/task-item'
 import TaskList from '../components/task-list'
+import AnimatedColorBox from '../components/animated-color-box'
 
 const intialData: Array<TaskItemData> = [
     {
@@ -38,6 +40,7 @@ export default function MainScreen() {
     // const [checked, setChecked] = useState<boolean>(false)
     // const [subject, setSubject] = useState('Task Item')
     // const [isEditing, setIsEditing] = useState<boolean>(false)
+    console.log(Dimensions.get('screen').width)
 
     const handleToggleTaskItem = useCallback((item: TaskItemData) => {
         setData(prevData => {
@@ -80,13 +83,13 @@ export default function MainScreen() {
     }, [])
 
     return (
-        <Center
-            _dark={{ bg: 'blueGray.900' }}
-            _light={{ bg: 'blueGray.50' }}
-            // px={4}
+        // <View width={'full'} height={'full'}>
+        <AnimatedColorBox
             flex={1}
+            bg={useColorModeValue('warmGray.50', 'primary.900')}
+            w={'full'}
         >
-            <VStack space={5} alignItems={'center'} w={'full'}>
+            <VStack space={1} alignItems={'center'} w={'100%'}>
                 <TaskList
                     data={data}
                     onToggleItem={handleToggleTaskItem}
@@ -118,6 +121,7 @@ export default function MainScreen() {
                     setEditingItemId(id)
                 }}
             />
-        </Center>
+        </AnimatedColorBox>
+        // </View>
     )
 }

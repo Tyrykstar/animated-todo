@@ -101,7 +101,7 @@ const TaskItem = (props: Props) => {
                 py={2}
                 bg={useColorModeValue('warmGray.50', 'primary.900')}
             >
-                <Box width={30} height={30} mr={2}>
+                <Box width={70} height={70} mr={2}>
                     <Pressable onPress={onToggleCheckbox}>
                         <AnimatedCheckbox
                             boxOutlineColor={boxStroke}
@@ -116,7 +116,7 @@ const TaskItem = (props: Props) => {
                         placeholder="Task"
                         value={subject}
                         variant={'unstyled'}
-                        fontSize={19}
+                        fontSize={35}
                         px={1}
                         py={0}
                         autoFocus

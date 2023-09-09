@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import MainScreen from './screens/main-screen'
 import AboutScreen from './screens/about-screen'
+import { View } from 'native-base'
 
 const Drawer = createDrawerNavigator()
 
